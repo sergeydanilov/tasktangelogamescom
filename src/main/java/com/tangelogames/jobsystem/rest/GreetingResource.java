@@ -1,4 +1,4 @@
-package org.acme;
+package com.tangelogames.jobsystem.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

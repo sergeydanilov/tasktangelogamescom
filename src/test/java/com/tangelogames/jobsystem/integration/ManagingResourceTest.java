@@ -21,5 +21,6 @@ class ManagingResourceTest {
         var responseString = responseBody.print();
 
         // verify
+        System.out.println(responseString);
     }
 }

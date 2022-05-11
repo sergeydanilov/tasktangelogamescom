@@ -26,7 +26,7 @@ public class CustomJob1 extends AbstractScheduledJob {
         MessageConsumer<String> consumer = vertx.eventBus().consumer("custom.job.1");
         consumer.handler(message -> {
             log.info("I have received a message: " + message.body());
-            message.reply("OK");
+            message.reply(CustomJob1.class.getCanonicalName() + " : OK");
         });
     }
 

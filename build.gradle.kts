@@ -28,6 +28,10 @@ dependencies {
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
+    testImplementation("org.hamcrest:hamcrest:2.2")
+    testImplementation("org.mockito:mockito-junit-jupiter")
+    testImplementation("io.quarkus:quarkus-junit5-mockito")
+    testImplementation("org.apache.commons:commons-lang3:3.0")
 }
 
 group = "com.tangelogames"

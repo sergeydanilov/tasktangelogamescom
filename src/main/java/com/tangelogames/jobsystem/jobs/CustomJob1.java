@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public class CustomJob1 extends AbstractScheduledJob {
 
     @Inject
-    Vertx vertx;
+    private Vertx vertx;
 
     public CustomJob1() {
         super(SchedulePeriod.ONE_HOUR);
@@ -31,7 +31,12 @@ public class CustomJob1 extends AbstractScheduledJob {
     }
 
     @Override
-    public void execute() {
-//        System.out.println("this is message from " + this.getClass().getSimpleName());
+    protected void doJob() {
+        log.info("this is execution from " + this.getClass().getSimpleName());
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -17,17 +17,18 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+// todo : serg : 202205110909, Wed : Find a way how to test lambdas passed as arg to the function
 class JobWorkerTest {
     JobWorker worker;
-    private AbstractScheduledJob mockAbstractScheduledJob;
+    private AbstractScheduledJob mockJob;
     private Vertx mockVertx;
     private Context mockContext;
 
     @BeforeEach
     void setUp() {
-        mockAbstractScheduledJob = mock(AbstractScheduledJob.class);
-        when(mockAbstractScheduledJob.getDelayInMiliSec()).thenReturn(10_000L);
-        worker = new JobWorker(mockAbstractScheduledJob);
+        mockJob = mock(AbstractScheduledJob.class);
+        when(mockJob.getDelayInMiliSec()).thenReturn(10_000L);
+        worker = new JobWorker(mockJob);
         mockVertx = mock(Vertx.class);
         mockContext = mock(Context.class);
         worker.init(mockVertx, mockContext);
@@ -115,7 +116,7 @@ class JobWorkerTest {
     }
 
     @Test
-    public void handleJobExecute_call() {
+    void handleJobExecute_callJobExecute() {
         // setup
         Promise mockPromise = mock(Promise.class);
 
@@ -123,6 +124,22 @@ class JobWorkerTest {
         worker.handleJobExecute(mockPromise);
 
         // verify
-        verify(mockAbstractScheduledJob).execute();
+        verify(mockJob).execute();
     }
+
+    @Test
+    void handleJobExecute_callStartTimer() {
+        // setup
+        worker = spy(worker);
+        Promise mockPromise = mock(Promise.class);
+        when(mockJob.getDelayInMiliSec()).thenReturn(100L);
+
+        // act
+        worker.handleJobExecute(mockPromise);
+
+        // verify
+        verify(worker).startTimer(100L);
+    }
+
+
 }

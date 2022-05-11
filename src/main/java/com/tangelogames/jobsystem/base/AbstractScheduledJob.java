@@ -7,10 +7,6 @@ public abstract class AbstractScheduledJob {
         this.period = period;
     }
 
-    public int getPeriodOfExecutionInHours() {
-        return period.getPeriodValue();
-    }
-
     public long getDelayInMiliSec() {
         return period.getDelayInMiliSec();
     }

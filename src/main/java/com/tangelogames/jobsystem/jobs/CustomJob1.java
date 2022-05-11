@@ -18,7 +18,7 @@ public class CustomJob1 extends AbstractScheduledJob {
     private Vertx vertx;
 
     public CustomJob1() {
-        super(SchedulePeriod.ONE_HOUR);
+        super(SchedulePeriod.ONE_SECOND);
     }
 
     @PostConstruct
@@ -26,7 +26,7 @@ public class CustomJob1 extends AbstractScheduledJob {
         MessageConsumer<String> consumer = vertx.eventBus().consumer("custom.job.1");
         consumer.handler(message -> {
             log.info("I have received a message: " + message.body());
-            message.reply(CustomJob1.class.getCanonicalName() + " : OK");
+            message.reply(CustomJob1.class.getCanonicalName() + " " + this.getStatus());
         });
     }
 

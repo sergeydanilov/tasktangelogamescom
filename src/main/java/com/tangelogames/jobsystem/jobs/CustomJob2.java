@@ -14,6 +14,6 @@ public class CustomJob2 extends AbstractScheduledJob {
 
     @Override
     public void execute() {
-        System.out.println("this is message from " + this.getClass().getSimpleName());
+//        System.out.println("this is message from " + this.getClass().getSimpleName());
     }
 }

@@ -24,7 +24,7 @@ public class JobWorker extends AbstractVerticle {
     }
 
     void startTimer(long delay) {
-        log.info("Delay {} {}", job.getClass().getSimpleName(), delay);
+//        log.info("Delay {} {}", job.getClass().getSimpleName(), delay);
         if (delay <= 0) {
             startTimeout();
             return;

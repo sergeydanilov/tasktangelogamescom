@@ -13,7 +13,7 @@ import javax.inject.Inject;
 public class CustomJob2 extends AbstractScheduledJob {
 
     public CustomJob2() {
-        super(SchedulePeriod.TWO_HOURS, "custom.job.2");
+        super(SchedulePeriod.TWO_HOURS, CustomJob2.class.getCanonicalName());
     }
 
     @Inject

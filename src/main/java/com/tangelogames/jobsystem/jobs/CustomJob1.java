@@ -16,7 +16,7 @@ public class CustomJob1 extends AbstractScheduledJob {
     private Vertx vertx;
 
     public CustomJob1() {
-        super(SchedulePeriod.ONE_SECOND, "custom.job.1");
+        super(SchedulePeriod.ONE_SECOND, CustomJob1.class.getCanonicalName());
     }
 
     @Override

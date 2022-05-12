@@ -21,9 +21,9 @@ public class ManagingResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    @Path("/status/{id}")
-    public Uni<String> status(String id) {
-        return bus.<String>request("custom.job." + id, "status")
+    @Path("/status/{name}")
+    public Uni<String> status(String name) {
+        return bus.<String>request(name, "status")
                 .onItem().transform(Message::body);
     }
 

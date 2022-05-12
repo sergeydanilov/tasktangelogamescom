@@ -25,7 +25,12 @@ public class JobWorker extends AbstractVerticle {
             log.info("I have received a message: " + cmd);
             if ("run".equalsIgnoreCase(cmd)) {
                 log.info("do run cmd");
-
+                if (job.getStatus().equals(AbstractScheduledJob.Status.RUNNING)) {
+                    message.reply(job.getName() + " already running : " + this.job.getStatus());
+                } else {
+                    this.startImmediately();
+                    message.reply(job.getName() + " stated");
+                }
             } else {
                 message.reply(job.getName() + " " + this.job.getStatus());
             }
@@ -41,12 +46,18 @@ public class JobWorker extends AbstractVerticle {
     }
 
     void startTimer(long delay) {
-//        log.info("Delay {} {}", job.getClass().getSimpleName(), delay);
+        log.info("Delay {} {}", job.getClass().getSimpleName(), delay);
         if (delay <= 0) {
             startTimeout();
             return;
         }
         timerID = vertx.setTimer(delay, this::handleTimer);
+    }
+
+    void startImmediately() {
+        log.info("startImmediately {}", job.getClass().getSimpleName());
+        if (timerID > 0) vertx.cancelTimer(timerID);
+        timerID = vertx.setTimer(10, this::handleTimer);
     }
 
     void startTimeout() {

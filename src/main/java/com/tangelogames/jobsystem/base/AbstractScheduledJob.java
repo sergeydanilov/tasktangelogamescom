@@ -1,5 +1,7 @@
 package com.tangelogames.jobsystem.base;
 
+import java.util.UUID;
+
 public abstract class AbstractScheduledJob {
     public static enum Status {
         RUNNING, WAITING
@@ -8,9 +10,15 @@ public abstract class AbstractScheduledJob {
     private SchedulePeriod period;
     private Status status;
 
-    public AbstractScheduledJob(SchedulePeriod period) {
+    private UUID id;
+
+    private String name;
+
+    public AbstractScheduledJob(SchedulePeriod period, String name) {
         this.period = period;
         this.status = Status.WAITING;
+        this.name = name;
+        this.id = UUID.randomUUID();
     }
 
     public long getDelayInMiliSec() {
@@ -28,4 +36,8 @@ public abstract class AbstractScheduledJob {
     }
 
     protected abstract void doJob();
+
+    public String getName() {
+        return name;
+    }
 }

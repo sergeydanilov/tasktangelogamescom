@@ -4,6 +4,7 @@ import com.tangelogames.jobsystem.base.AbstractScheduledJob;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Handler;
 import io.vertx.core.Promise;
+import io.vertx.core.eventbus.MessageConsumer;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -17,10 +18,26 @@ public class JobWorker extends AbstractVerticle {
         this.job = job;
     }
 
+    void initEventBusConsumer() {
+        MessageConsumer<String> consumer = vertx.eventBus().consumer(job.getName());
+        consumer.handler(message -> {
+            final String cmd = message.body();
+            log.info("I have received a message: " + cmd);
+            if ("run".equalsIgnoreCase(cmd)) {
+                log.info("do run cmd");
+
+            } else {
+                message.reply(job.getName() + " " + this.job.getStatus());
+            }
+        });
+    }
+
+
     @Override
     public void start(Promise<Void> promise) throws Exception {
         super.start(promise);
         startTimer(job.getDelayInMiliSec());
+        initEventBusConsumer();
     }
 
     void startTimer(long delay) {
@@ -64,5 +81,9 @@ public class JobWorker extends AbstractVerticle {
             log.error(e.getMessage(), e);
             startTimer(60_000 * 5);
         }
+    }
+
+    public AbstractScheduledJob getJob() {
+        return job;
     }
 }

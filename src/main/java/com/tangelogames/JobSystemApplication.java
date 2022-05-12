@@ -54,5 +54,8 @@ public class JobSystemApplication {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        // start listener here
+
     }
 }

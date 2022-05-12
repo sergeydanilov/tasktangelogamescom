@@ -27,4 +27,11 @@ public class ManagingResource {
                 .onItem().transform(Message::body);
     }
 
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/run/{name}")
+    public Uni<String> run(String name) {
+        return bus.<String>request(name, "run")
+                .onItem().transform(Message::body);
+    }
 }

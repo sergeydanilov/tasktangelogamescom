@@ -141,5 +141,14 @@ class JobWorkerTest {
         verify(worker).startTimer(100L);
     }
 
+    // todo : serg : 202205121439, Thu : add event bus consumers tests
+    @Test
+    void initEventBusConsumer_test() {
+        // setup
 
+        // act
+
+        // verify
+
+    }
 }

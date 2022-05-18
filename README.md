@@ -37,7 +37,7 @@ If you want to build an _über-jar_, execute the following command:
 ./gradlew build -Dquarkus.package.type=uber-jar
 ```
 
-## Regrading How to create Custom Job
+## Rregarding How to create Custom Job
 
 Please take a look on the package
 
@@ -57,7 +57,7 @@ To implement CustomJob a developer should extend the
 public abstract class AbstractScheduledJob;
 ```
 
-like it did the CustomJob1
+Like it did the CustomJob1
 
 
 

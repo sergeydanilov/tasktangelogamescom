@@ -5,6 +5,8 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class ManagingResourceTest {
@@ -18,9 +20,9 @@ class ManagingResourceTest {
                 .extract().response();
 
         var responseBody = response.getBody();
-        var responseString = responseBody.print();
+        var result = responseBody.print();
 
         // verify
-        System.out.println(responseString);
+        assertThat(result, is("{com.tangelogames.jobsystem.jobs.CustomJob1=com.tangelogames.jobsystem.jobs.CustomJob1 RUNNING, com.tangelogames.jobsystem.jobs.CustomJob2=com.tangelogames.jobsystem.jobs.CustomJob2 WAITING}"));
     }
 }
